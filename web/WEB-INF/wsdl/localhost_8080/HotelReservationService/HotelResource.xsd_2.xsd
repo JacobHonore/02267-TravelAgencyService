@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.1.1 (branches/2.1-6844; 2011-07-29T12:07:24+0000) JAXWS-RI/2.2.5 JAXWS/2.2. --><xs:schema xmlns:tns="http://dtu.ws/" xmlns:ns1="urn://types.fastmoney.imm.dtu.dk" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://dtu.ws/">
+
+<xs:import namespace="urn://types.fastmoney.imm.dtu.dk" schemaLocation="http://localhost:8080/HotelReservationService/HotelResource?xsd=1"/>
+
+<xs:element name="Exception" type="tns:Exception"/>
+
+<xs:element name="bookHotel" type="tns:bookHotel"/>
+
+<xs:element name="bookHotelResponse" type="tns:bookHotelResponse"/>
+
+<xs:element name="cancelHotel" type="tns:cancelHotel"/>
+
+<xs:element name="cancelHotelResponse" type="tns:cancelHotelResponse"/>
+
+<xs:element name="getHotels" type="tns:getHotels"/>
+
+<xs:element name="getHotelsResponse" type="tns:getHotelsResponse"/>
+
+<xs:complexType name="getHotels">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getHotelsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cancelHotel">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cancelHotelResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Exception">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="bookHotel">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="ns1:creditCardInfoType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="bookHotelResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

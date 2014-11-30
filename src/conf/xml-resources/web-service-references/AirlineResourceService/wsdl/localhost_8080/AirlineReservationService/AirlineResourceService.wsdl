@@ -28,6 +28,12 @@
 <message name="cancelFlightResponse">
 <part name="parameters" element="tns:cancelFlightResponse"/>
 </message>
+<message name="createAccount">
+<part name="parameters" element="tns:createAccount"/>
+</message>
+<message name="createAccountResponse">
+<part name="parameters" element="tns:createAccountResponse"/>
+</message>
 <portType name="AirlineResource">
 <operation name="getFlight">
 <input wsam:Action="http://dtu.ws/AirlineResource/getFlightRequest" message="tns:getFlight"/>
@@ -42,6 +48,10 @@
 <input wsam:Action="http://dtu.ws/AirlineResource/cancelFlightRequest" message="tns:cancelFlight"/>
 <output wsam:Action="http://dtu.ws/AirlineResource/cancelFlightResponse" message="tns:cancelFlightResponse"/>
 <fault message="tns:Exception" name="Exception" wsam:Action="http://dtu.ws/AirlineResource/cancelFlight/Fault/Exception"/>
+</operation>
+<operation name="createAccount">
+<input wsam:Action="http://dtu.ws/AirlineResource/createAccountRequest" message="tns:createAccount"/>
+<output wsam:Action="http://dtu.ws/AirlineResource/createAccountResponse" message="tns:createAccountResponse"/>
 </operation>
 </portType>
 <binding name="AirlineResourcePortBinding" type="tns:AirlineResource">
@@ -78,6 +88,15 @@
 <fault name="Exception">
 <soap:fault name="Exception" use="literal"/>
 </fault>
+</operation>
+<operation name="createAccount">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
 </operation>
 </binding>
 <service name="AirlineResourceService">
