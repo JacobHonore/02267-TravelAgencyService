@@ -53,6 +53,7 @@ public class Itinery {
             try {
                 if (cancelFlight(flight)) {
                     returnMsg += flight+" cancelled ";
+                    flightList.remove(flight);
                 }
                 else {
                     returnMsg += flight+" could not be cancelled ";
@@ -60,6 +61,14 @@ public class Itinery {
             } catch (Exception_Exception ex) {
                 returnMsg += ex.getMessage()+" ";
             }
+        }
+        return returnMsg;
+    }
+    //TODO: Add listing of hotels booked
+    public String get() {
+        String returnMsg = "The following flights has been booked: ";
+        for (String flight : flightList) {
+            returnMsg += flight+" ";
         }
         return returnMsg;
     }

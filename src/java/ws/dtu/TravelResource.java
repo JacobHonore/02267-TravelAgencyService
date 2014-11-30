@@ -35,6 +35,16 @@ public class TravelResource {
             return "No itinery. Please create an itinery.";
         return itinery.cancel();
     }
+    @Path("getItinery")
+    @GET
+    public String getItinery(@Context HttpServletRequest req) {
+        HttpSession session = req.getSession(true);
+        Itinery itinery;
+        itinery = (Itinery) session.getAttribute("itinery");
+        if (itinery == null) 
+            return "No itinery. Please create an itinery.";
+        return itinery.get();
+    }
     @Path("addFlight")
     @GET
     public String addFlight(@Context HttpServletRequest req, @QueryParam("flightnumber") String flightNumber) {
