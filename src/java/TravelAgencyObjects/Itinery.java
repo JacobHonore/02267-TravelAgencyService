@@ -87,7 +87,6 @@ public class Itinery {
         }
         return returnMsg;
     }
-    //TODO: Add listing of hotels booked
     public String get() {
         String returnMsg = "The following flights has been booked: ";
         for (String flight : flightList) {
@@ -119,5 +118,10 @@ public class Itinery {
         ws.dtu.HotelResource_Service service = new ws.dtu.HotelResource_Service();
         ws.dtu.HotelResource port = service.getHotelResourcePort();
         return port.cancelHotel(hotelNumber);
+    }
+    public String getHotels(String city, String arrivalDate, String departureDate) {
+        ws.dtu.HotelResource_Service service = new ws.dtu.HotelResource_Service();
+        ws.dtu.HotelResource port = service.getHotelResourcePort();
+        return port.getHotels(city, arrivalDate, departureDate);
     }
 }

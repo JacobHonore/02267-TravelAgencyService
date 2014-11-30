@@ -98,6 +98,19 @@ public class TravelResource {
             return "No itinery. Please create an itinery.";
         return itinery.getFlight(startAirport, destAirport, liftoffDate);
     }
+    @Path("getHotels")
+    @GET
+    public String getHotels(@Context HttpServletRequest req, @QueryParam("city") String city,
+    @QueryParam("arrivalDate") String arrivalDate, @QueryParam("departureDate") String departureDate) {
+        if (city == null && arrivalDate == null && departureDate == null)
+            return "All parameters havent been set.";
+        HttpSession session = req.getSession(true);
+        Itinery itinery;
+        itinery = (Itinery) session.getAttribute("itinery");
+        if (itinery == null) 
+            return "No itinery. Please create an itinery.";
+        return itinery.getFlight(city, arrivalDate, departureDate);
+    }
     @Path("setCreditCardInfo")
     @GET
     public String setCreditCardInfo(@Context HttpServletRequest req, @QueryParam("name") String name,
