@@ -39,6 +39,16 @@ public class Itinery {
         }
         return result;
     }
+    public boolean addHotel(String hotelNumber) throws Exception_Exception {
+        ws.dtu.HotelResource_Service service = new ws.dtu.HotelResource_Service();
+        ws.dtu.HotelResource port = service.getHotelResourcePort();
+        dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCard = creditCard();
+        boolean result = port.bookHotel(hotelNumber, creditCard);
+        if (result == true) {
+            hotelList.add(hotelNumber);
+        }
+        return result;
+    }
     public boolean isCreditCardInfoSet() {
         return (customerName != null && cardNumber != null && cardMonth > 0 && cardYear > 0);
     }

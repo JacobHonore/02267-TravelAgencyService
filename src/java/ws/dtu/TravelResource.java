@@ -65,6 +65,26 @@ public class TravelResource {
         session.setAttribute("itinery", itinery);
         return "Flight has been booked and added to list of flights.";
     }
+    @Path("addHotel")
+    @GET
+    public String addHotel(@Context HttpServletRequest req, @QueryParam("hotelnumber") String hotelNumber) {
+        if (hotelNumber == null || "".equals(hotelNumber) || hotelNumber.isEmpty())
+            return "Please set the hotelnumber parameter.";
+        HttpSession session = req.getSession(true);
+        Itinery itinery;
+        itinery = (Itinery) session.getAttribute("itinery");
+        if (itinery == null) 
+            return "No itinery. Please create an itinery.";
+        if (!itinery.isCreditCardInfoSet())
+            return "Credit card info havent been set, please call setCreditCardInfo.";
+        try {
+            itinery.addHotel(hotelNumber);
+        } catch (Exception_Exception ex) {
+            return ex.getMessage();
+        }
+        session.setAttribute("itinery", itinery);
+        return "Hotel has been booked and added to list of hotels.";
+    }
     @Path("getFlights")
     @GET
     public String getFlights(@Context HttpServletRequest req, @QueryParam("startairport") String startAirport,
