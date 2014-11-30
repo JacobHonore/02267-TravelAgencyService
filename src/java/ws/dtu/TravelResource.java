@@ -19,12 +19,11 @@ public class TravelResource {
     public String createItinery(@Context HttpServletRequest req) { 
         HttpSession session = req.getSession(true);
         Itinery itinery;
-        //itinery = (Itinery) session.getAttribute("itinery");
-        //if (itinery == null) 
-            itinery = new Itinery();
+        itinery = new Itinery();
         session.setAttribute("itinery", itinery);
         return "New itinery created";
     }
+    
     @Path("cancelItinery")
     @GET
     public String cancelItinery(@Context HttpServletRequest req) {
@@ -35,6 +34,7 @@ public class TravelResource {
             return "No itinery. Please create an itinery.";
         return itinery.cancel();
     }
+    
     @Path("getItinery")
     @GET
     public String getItinery(@Context HttpServletRequest req) {
@@ -45,6 +45,7 @@ public class TravelResource {
             return "No itinery. Please create an itinery.";
         return itinery.get();
     }
+    
     @Path("addFlight")
     @GET
     public String addFlight(@Context HttpServletRequest req, @QueryParam("flightnumber") String flightNumber) {
@@ -65,6 +66,7 @@ public class TravelResource {
         session.setAttribute("itinery", itinery);
         return "Flight has been booked and added to list of flights.";
     }
+    
     @Path("addHotel")
     @GET
     public String addHotel(@Context HttpServletRequest req, @QueryParam("hotelnumber") String hotelNumber) {
@@ -85,32 +87,25 @@ public class TravelResource {
         session.setAttribute("itinery", itinery);
         return "Hotel has been booked and added to list of hotels.";
     }
+    
     @Path("getFlights")
     @GET
     public String getFlights(@Context HttpServletRequest req, @QueryParam("startairport") String startAirport,
     @QueryParam("destairport") String destAirport, @QueryParam("liftoffdate") String liftoffDate) {
         if (startAirport == null && destAirport == null && liftoffDate == null)
             return "All parameters havent been set.";
-        HttpSession session = req.getSession(true);
-        Itinery itinery;
-        itinery = (Itinery) session.getAttribute("itinery");
-        if (itinery == null) 
-            return "No itinery. Please create an itinery.";
-        return itinery.getFlight(startAirport, destAirport, liftoffDate);
+        return Itinery.getFlight(startAirport, destAirport, liftoffDate);
     }
+    
     @Path("getHotels")
     @GET
     public String getHotels(@Context HttpServletRequest req, @QueryParam("city") String city,
-    @QueryParam("arrivalDate") String arrivalDate, @QueryParam("departureDate") String departureDate) {
-        if (city == null && arrivalDate == null && departureDate == null)
+    @QueryParam("arrivaldate") String arrivalDate, @QueryParam("departuredate") String departureDate) {
+        if (city == null || arrivalDate == null || departureDate == null)
             return "All parameters havent been set.";
-        HttpSession session = req.getSession(true);
-        Itinery itinery;
-        itinery = (Itinery) session.getAttribute("itinery");
-        if (itinery == null) 
-            return "No itinery. Please create an itinery.";
-        return itinery.getFlight(city, arrivalDate, departureDate);
+        return Itinery.getHotels(city, arrivalDate, departureDate);
     }
+    
     @Path("setCreditCardInfo")
     @GET
     public String setCreditCardInfo(@Context HttpServletRequest req, @QueryParam("name") String name,

@@ -52,10 +52,15 @@ public class Itinery {
     public boolean isCreditCardInfoSet() {
         return (customerName != null && cardNumber != null && cardMonth > 0 && cardYear > 0);
     }
-    public String getFlight(String startAirport, String destAirport, String liftoffDate) {
+    public static String getFlight(String startAirport, String destAirport, String liftoffDate) {
         ws.dtu.AirlineResourceService service = new ws.dtu.AirlineResourceService();
         ws.dtu.AirlineResource port = service.getAirlineResourcePort();
         return port.getFlight(startAirport, destAirport, liftoffDate);
+    }
+    public static String getHotels(String city, String arrivalDate, String departureDate) {
+        ws.dtu.HotelResource_Service service = new ws.dtu.HotelResource_Service();
+        ws.dtu.HotelResource port = service.getHotelResourcePort();
+        return port.getHotels(city, arrivalDate, departureDate);
     }
     public String cancel() {
         String returnMsg = "";
@@ -118,10 +123,5 @@ public class Itinery {
         ws.dtu.HotelResource_Service service = new ws.dtu.HotelResource_Service();
         ws.dtu.HotelResource port = service.getHotelResourcePort();
         return port.cancelHotel(hotelNumber);
-    }
-    public String getHotels(String city, String arrivalDate, String departureDate) {
-        ws.dtu.HotelResource_Service service = new ws.dtu.HotelResource_Service();
-        ws.dtu.HotelResource port = service.getHotelResourcePort();
-        return port.getHotels(city, arrivalDate, departureDate);
     }
 }
