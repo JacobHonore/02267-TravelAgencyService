@@ -18,6 +18,7 @@ public class Itinery {
     private int cardMonth;
     private int cardYear;
     private List<String> flightList = new ArrayList<String>();
+    private List<String> hotelList = new ArrayList<String>();
     public Itinery() {
         Random rand = new Random();
         this.itineryNum = rand.nextInt((10000 - 1) + 1) + 1;
@@ -46,7 +47,6 @@ public class Itinery {
         ws.dtu.AirlineResource port = service.getAirlineResourcePort();
         return port.getFlight(startAirport, destAirport, liftoffDate);
     }
-    //TODO: Add cancelation of hotels
     public String cancel() {
         String returnMsg = "";
         for (String flight : flightList) {
@@ -62,6 +62,19 @@ public class Itinery {
                 returnMsg += ex.getMessage()+" ";
             }
         }
+        for (String hotel : hotelList) {
+            try {
+                if (cancelHotel(hotel)) {
+                    returnMsg += hotel+" cancelled ";
+                    hotelList.remove(hotel);
+                }
+                else {
+                    returnMsg += hotel+" could not be cancelled ";
+                }
+            } catch (Exception_Exception ex) {
+                returnMsg += ex.getMessage()+" ";
+            }
+        }
         return returnMsg;
     }
     //TODO: Add listing of hotels booked
@@ -69,6 +82,10 @@ public class Itinery {
         String returnMsg = "The following flights has been booked: ";
         for (String flight : flightList) {
             returnMsg += flight+" ";
+        }
+        returnMsg += "The following hotels has been booked: ";
+        for (String hotel : hotelList) {
+            returnMsg += hotel+" ";
         }
         return returnMsg;
     }
@@ -87,5 +104,10 @@ public class Itinery {
         ws.dtu.AirlineResourceService service = new ws.dtu.AirlineResourceService();
         ws.dtu.AirlineResource port = service.getAirlineResourcePort();
         return port.cancelFlight(bookingNumber, creditCard);
+    }
+    private boolean cancelHotel(java.lang.String hotelNumber) throws Exception_Exception {
+        ws.dtu.HotelResource_Service service = new ws.dtu.HotelResource_Service();
+        ws.dtu.HotelResource port = service.getHotelResourcePort();
+        return port.cancelHotel(hotelNumber);
     }
 }
