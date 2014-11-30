@@ -47,4 +47,9 @@ public class Itinery {
     public boolean isCreditCardInfoSet() {
         return (customerName != null && cardNumber != null && cardMonth > 0 && cardYear > 0);
     }
+    public String getFlight(String startAirport, String destAirport, String liftoffDate) {
+        ws.dtu.AirlineResourceService service = new ws.dtu.AirlineResourceService();
+        ws.dtu.AirlineResource port = service.getAirlineResourcePort();
+        return port.getFlight(startAirport, destAirport, liftoffDate);
+    }
 }
