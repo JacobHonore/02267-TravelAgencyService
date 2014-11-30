@@ -1,8 +1,6 @@
 package ws.dtu;
 
 import TravelAgencyObjects.Itinery;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.GET;
@@ -26,6 +24,16 @@ public class TravelResource {
             itinery = new Itinery();
         session.setAttribute("itinery", itinery);
         return "New itinery created";
+    }
+    @Path("cancelItinery")
+    @GET
+    public String cancelItinery(@Context HttpServletRequest req) {
+        HttpSession session = req.getSession(true);
+        Itinery itinery;
+        itinery = (Itinery) session.getAttribute("itinery");
+        if (itinery == null) 
+            return "No itinery. Please create an itinery.";
+        return itinery.cancel();
     }
     @Path("addFlight")
     @GET

@@ -31,13 +31,7 @@ public class Itinery {
     public boolean addFlight(String flightNumber) throws Exception_Exception {
         ws.dtu.AirlineResourceService service = new ws.dtu.AirlineResourceService();
         ws.dtu.AirlineResource port = service.getAirlineResourcePort();
-        dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCard = new dk.dtu.imm.fastmoney.types.CreditCardInfoType();
-        creditCard.setName(this.customerName);
-        creditCard.setNumber(this.cardNumber);
-        dk.dtu.imm.fastmoney.types.ExpirationDateType expirationDate = new dk.dtu.imm.fastmoney.types.ExpirationDateType();
-        expirationDate.setMonth(this.cardMonth);
-        expirationDate.setYear(this.cardYear);
-        creditCard.setExpirationDate(expirationDate);
+        dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCard = creditCard();
         boolean result = port.bookFlight(flightNumber, creditCard);
         if (result == true) {
             flightList.add(flightNumber);
@@ -51,5 +45,38 @@ public class Itinery {
         ws.dtu.AirlineResourceService service = new ws.dtu.AirlineResourceService();
         ws.dtu.AirlineResource port = service.getAirlineResourcePort();
         return port.getFlight(startAirport, destAirport, liftoffDate);
+    }
+    //TODO: Add cancelation of hotels
+    public String cancel() {
+        String returnMsg = "";
+        for (String flight : flightList) {
+            try {
+                if (cancelFlight(flight)) {
+                    returnMsg += flight+" cancelled ";
+                }
+                else {
+                    returnMsg += flight+" could not be cancelled ";
+                }
+            } catch (Exception_Exception ex) {
+                returnMsg += ex.getMessage()+" ";
+            }
+        }
+        return returnMsg;
+    }
+    private dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCard() {
+        dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCard = new dk.dtu.imm.fastmoney.types.CreditCardInfoType();
+        creditCard.setName(this.customerName);
+        creditCard.setNumber(this.cardNumber);
+        dk.dtu.imm.fastmoney.types.ExpirationDateType expirationDate = new dk.dtu.imm.fastmoney.types.ExpirationDateType();
+        expirationDate.setMonth(this.cardMonth);
+        expirationDate.setYear(this.cardYear);
+        creditCard.setExpirationDate(expirationDate);
+        return creditCard;
+    }
+    private boolean cancelFlight(String bookingNumber) throws Exception_Exception {
+        dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCard = creditCard();
+        ws.dtu.AirlineResourceService service = new ws.dtu.AirlineResourceService();
+        ws.dtu.AirlineResource port = service.getAirlineResourcePort();
+        return port.cancelFlight(bookingNumber, creditCard);
     }
 }
