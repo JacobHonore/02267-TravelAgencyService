@@ -64,11 +64,13 @@ public class Itinery {
     }
     public String cancel() {
         String returnMsg = "";
-        for (String flight : flightList) {
+        for(int i=0;i<flightList.size();i++) {
+            String flight = flightList.get(i);
             try {
                 if (cancelFlight(flight)) {
                     returnMsg += flight+" cancelled ";
                     flightList.remove(flight);
+                    i--;
                 }
                 else {
                     returnMsg += flight+" could not be cancelled ";
@@ -77,11 +79,13 @@ public class Itinery {
                 returnMsg += ex.getMessage()+" ";
             }
         }
-        for (String hotel : hotelList) {
+        for(int i=0;i<hotelList.size();i++) {
+            String hotel = hotelList.get(i);
             try {
                 if (cancelHotel(hotel)) {
                     returnMsg += hotel+" cancelled ";
                     hotelList.remove(hotel);
+                    i--;
                 }
                 else {
                     returnMsg += hotel+" could not be cancelled ";
@@ -119,7 +123,7 @@ public class Itinery {
         ws.dtu.AirlineResource port = service.getAirlineResourcePort();
         return port.cancelFlight(bookingNumber, creditCard);
     }
-    private boolean cancelHotel(java.lang.String hotelNumber) throws Exception_Exception {
+    private boolean cancelHotel(String hotelNumber) throws Exception_Exception {
         ws.dtu.HotelResource_Service service = new ws.dtu.HotelResource_Service();
         ws.dtu.HotelResource port = service.getHotelResourcePort();
         return port.cancelHotel(hotelNumber);

@@ -3,8 +3,12 @@ package ws.dtu;
 import TravelAgencyObjects.Itinery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
@@ -15,7 +19,7 @@ import javax.ws.rs.core.Context;
 @Path("travel")
 public class TravelResource {
     @Path("createItinery")
-    @GET
+    @PUT
     public String createItinery(@Context HttpServletRequest req) { 
         HttpSession session = req.getSession(true);
         Itinery itinery;
@@ -25,14 +29,16 @@ public class TravelResource {
     }
     
     @Path("cancelItinery")
-    @GET
+    @DELETE
     public String cancelItinery(@Context HttpServletRequest req) {
         HttpSession session = req.getSession(true);
         Itinery itinery;
         itinery = (Itinery) session.getAttribute("itinery");
         if (itinery == null) 
             return "No itinery. Please create an itinery.";
-        return itinery.cancel();
+        String result = itinery.cancel();
+        session.setAttribute("itinery", itinery);
+        return result;
     }
     
     @Path("getItinery")
@@ -47,7 +53,7 @@ public class TravelResource {
     }
     
     @Path("addFlight")
-    @GET
+    @POST
     public String addFlight(@Context HttpServletRequest req, @QueryParam("flightnumber") String flightNumber) {
         if (flightNumber == null || "".equals(flightNumber) || flightNumber.isEmpty())
             return "Please set the flightnumber parameter.";
@@ -68,7 +74,7 @@ public class TravelResource {
     }
     
     @Path("addHotel")
-    @GET
+    @POST
     public String addHotel(@Context HttpServletRequest req, @QueryParam("hotelnumber") String hotelNumber) {
         if (hotelNumber == null || "".equals(hotelNumber) || hotelNumber.isEmpty())
             return "Please set the hotelnumber parameter.";
@@ -89,6 +95,7 @@ public class TravelResource {
     }
     
     @Path("getFlights")
+    @Produces("application/json")
     @GET
     public String getFlights(@Context HttpServletRequest req, @QueryParam("startairport") String startAirport,
     @QueryParam("destairport") String destAirport, @QueryParam("liftoffdate") String liftoffDate) {
@@ -98,6 +105,7 @@ public class TravelResource {
     }
     
     @Path("getHotels")
+    @Produces("application/json")
     @GET
     public String getHotels(@Context HttpServletRequest req, @QueryParam("city") String city,
     @QueryParam("arrivaldate") String arrivalDate, @QueryParam("departuredate") String departureDate) {
@@ -107,7 +115,7 @@ public class TravelResource {
     }
     
     @Path("setCreditCardInfo")
-    @GET
+    @POST
     public String setCreditCardInfo(@Context HttpServletRequest req, @QueryParam("name") String name,
      @QueryParam("number") String number,  @QueryParam("month") int month,  @QueryParam("year") int year) {
         if (!(name != null && number != null && month > 0 && year > 0))
