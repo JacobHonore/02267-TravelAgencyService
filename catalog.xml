@@ -2,10 +2,10 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="file:/Users/jacobhonore/Desktop/AirlineResourceService.wsdl" uri="src/conf/xml-resources/web-services/AirlineReservationService/wsdl/AirlineResourceService.wsdl"/>
     <nextCatalog catalog="nbproject/private/retriever/catalog.xml"/>
-    <system systemId="http://localhost:8080/HotelReservationService/HotelResource?wsdl" uri="src/conf/xml-resources/web-service-references/HotelResource/wsdl/localhost_8080/HotelReservationService/HotelResource.wsdl"/>
-    <system systemId="http://localhost:8080/HotelReservationService/HotelResource?xsd=1" uri="src/conf/xml-resources/web-service-references/HotelResource/wsdl/localhost_8080/HotelReservationService/HotelResource.xsd_1.xsd"/>
-    <system systemId="http://localhost:8080/HotelReservationService/HotelResource?xsd=2" uri="src/conf/xml-resources/web-service-references/HotelResource/wsdl/localhost_8080/HotelReservationService/HotelResource.xsd_2.xsd"/>
     <system systemId="http://localhost:8080/AirlineReservationService/AirlineResourceService?wsdl" uri="src/conf/xml-resources/web-service-references/AirlineResourceService/wsdl/localhost_8080/AirlineReservationService/AirlineResourceService.wsdl"/>
     <system systemId="http://localhost:8080/AirlineReservationService/AirlineResourceService?xsd=1" uri="src/conf/xml-resources/web-service-references/AirlineResourceService/wsdl/localhost_8080/AirlineReservationService/AirlineResourceService.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/AirlineReservationService/AirlineResourceService?xsd=2" uri="src/conf/xml-resources/web-service-references/AirlineResourceService/wsdl/localhost_8080/AirlineReservationService/AirlineResourceService.xsd_2.xsd"/>
+    <system systemId="http://localhost:8080/HotelReservationService/HotelResource?wsdl" uri="src/conf/xml-resources/web-service-references/HotelResource/wsdl/localhost_8080/HotelReservationService/HotelResource.wsdl"/>
+    <system systemId="http://localhost:8080/HotelReservationService/HotelResource?xsd=1" uri="src/conf/xml-resources/web-service-references/HotelResource/wsdl/localhost_8080/HotelReservationService/HotelResource.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/HotelReservationService/HotelResource?xsd=2" uri="src/conf/xml-resources/web-service-references/HotelResource/wsdl/localhost_8080/HotelReservationService/HotelResource.xsd_2.xsd"/>
 </catalog>

@@ -33,13 +33,15 @@ public class Itinery {
         for(int i=0;i<flightList.size();i++) {
             booking = flightList.get(i);
             try {
-                if (bookFlight(booking.getBookingNumber())) {
-                    booking.setBookingStatus(Booking.BookingStatus.CONFIRMED);
-                    flightList.set(i, booking);
-                    msg += booking.getBookingNumber()+" has been "+booking.getBookingStatus()+"<br>";
-                }
-                else {
-                    msg += booking.getBookingNumber()+" could not be booked.<br>";
+                if (booking.getBookingStatus() == Booking.BookingStatus.UNCONFIRMED) {
+                    if (bookFlight(booking.getBookingNumber())) {
+                        booking.setBookingStatus(Booking.BookingStatus.CONFIRMED);
+                        flightList.set(i, booking);
+                        msg += booking.getBookingNumber()+" has been "+booking.getBookingStatus()+"<br>";
+                    }
+                    else {
+                        msg += booking.getBookingNumber()+" could not be booked.<br>";
+                    }
                 }
             } catch (Exception_Exception ex) {
                 msg += booking.getBookingNumber()+" could not be booked. Because of the following error: "+ex.getMessage()+"<br>";
@@ -48,13 +50,15 @@ public class Itinery {
         for(int i=0;i<hotelList.size();i++) {
             booking = hotelList.get(i);
             try {
-                if (bookFlight(booking.getBookingNumber())) {
-                    booking.setBookingStatus(Booking.BookingStatus.CONFIRMED);
-                    hotelList.set(i, booking);
-                    msg += booking.getBookingNumber()+" has been "+booking.getBookingStatus()+"<br>";
-                }
-                else {
-                    msg += booking.getBookingNumber()+" could not be booked.<br>";
+                if (booking.getBookingStatus() == Booking.BookingStatus.UNCONFIRMED) {
+                    if (bookHotel(booking.getBookingNumber())) {
+                        booking.setBookingStatus(Booking.BookingStatus.CONFIRMED);
+                        hotelList.set(i, booking);
+                        msg += booking.getBookingNumber()+" has been "+booking.getBookingStatus()+"<br>";
+                    }
+                    else {
+                        msg += booking.getBookingNumber()+" could not be booked.<br>";
+                    }
                 }
             } catch (Exception_Exception ex) {
                 msg += booking.getBookingNumber()+" could not be booked. Because of the following error: "+ex.getMessage()+"<br>";
@@ -120,11 +124,11 @@ public class Itinery {
         return returnMsg;
     }
     public String get() {
-        String returnMsg = "The following flights has been booked:<br>";
+        String returnMsg = "The following flights has been planned:<br>";
         for (Booking flight : flightList) {
             returnMsg += flight+"<br>";
         }
-        returnMsg += "<br>The following hotels has been booked:<br>";
+        returnMsg += "<br>The following hotels has been planned:<br>";
         for (Booking hotel : hotelList) {
             returnMsg += hotel+"<br>";
         }
@@ -151,7 +155,6 @@ public class Itinery {
         ws.dtu.HotelResource port = service.getHotelResourcePort();
         return port.cancelHotel(hotelNumber);
     }
-    
     private boolean bookFlight(String bookingNumber) throws Exception_Exception {
         dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCard = creditCard();
         ws.dtu.AirlineResourceService service = new ws.dtu.AirlineResourceService();
