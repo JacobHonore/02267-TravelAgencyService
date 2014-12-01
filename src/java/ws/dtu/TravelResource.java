@@ -103,9 +103,9 @@ public class TravelResource {
         return Itinery.getHotels(city, arrivalDate, departureDate);
     }
     
-    @Path("setCreditCardInfo")
+    @Path("book")
     @POST
-    public String setCreditCardInfo(@Context HttpServletRequest req, @QueryParam("name") String name,
+    public String book(@Context HttpServletRequest req, @QueryParam("name") String name,
      @QueryParam("number") String number,  @QueryParam("month") int month,  @QueryParam("year") int year) {
         if (!(name != null && number != null && month > 0 && year > 0))
             return "All parameters havent been set.";
@@ -114,8 +114,8 @@ public class TravelResource {
         itinery = (Itinery) session.getAttribute("itinery");
         if (itinery == null) 
             return "No itinery. Please create an itinery.";
-        itinery.setCreditCardInfo(name, number, month, year);
+        String result = itinery.book(name, number, month, year);
         session.setAttribute("itinery", itinery);
-        return "Creditcard information has been stored.";
+        return result;
     }
 }
