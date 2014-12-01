@@ -13,14 +13,14 @@
 <message name="getHotelsResponse">
 <part name="parameters" element="tns:getHotelsResponse"/>
 </message>
+<message name="Exception">
+<part name="fault" element="tns:Exception"/>
+</message>
 <message name="bookHotel">
 <part name="parameters" element="tns:bookHotel"/>
 </message>
 <message name="bookHotelResponse">
 <part name="parameters" element="tns:bookHotelResponse"/>
-</message>
-<message name="Exception">
-<part name="fault" element="tns:Exception"/>
 </message>
 <message name="cancelHotel">
 <part name="parameters" element="tns:cancelHotel"/>
@@ -32,6 +32,7 @@
 <operation name="getHotels">
 <input wsam:Action="http://dtu.ws/HotelResource/getHotelsRequest" message="tns:getHotels"/>
 <output wsam:Action="http://dtu.ws/HotelResource/getHotelsResponse" message="tns:getHotelsResponse"/>
+<fault message="tns:Exception" name="Exception" wsam:Action="http://dtu.ws/HotelResource/getHotels/Fault/Exception"/>
 </operation>
 <operation name="bookHotel">
 <input wsam:Action="http://dtu.ws/HotelResource/bookHotelRequest" message="tns:bookHotel"/>
@@ -54,6 +55,9 @@
 <output>
 <soap:body use="literal"/>
 </output>
+<fault name="Exception">
+<soap:fault name="Exception" use="literal"/>
+</fault>
 </operation>
 <operation name="bookHotel">
 <soap:operation soapAction=""/>
