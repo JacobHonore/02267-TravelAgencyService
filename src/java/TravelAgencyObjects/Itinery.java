@@ -91,34 +91,49 @@ public class Itinery {
     }
     public String cancel() {
         String returnMsg = "";
+        Booking booking;
         for(int i=0;i<flightList.size();i++) {
-            String flight = flightList.get(i);
-            try {
-                if (cancelFlight(flight)) {
-                    returnMsg += flight+" cancelled<br>";
-                    flightList.remove(flight);
-                    i--;
+            booking = flightList.get(i);
+            if (booking.getBookingStatus() == Booking.BookingStatus.CONFIRMED) {
+                try {
+                    if (cancelFlight(booking.getBookingNumber())) {
+                        returnMsg += booking.getBookingNumber()+" cancelled<br>";
+                        booking.setBookingStatus(Booking.BookingStatus.CANCELLED);
+                        flightList.set(i, booking);
+                    }
+                    else {
+                        returnMsg += booking.getBookingNumber()+" could not be cancelled<br>";
+                    }
+                } catch (Exception_Exception ex) {
+                    returnMsg += booking.getBookingNumber()+" could not be cancelled because of the following error: "+ex.getMessage()+"<br>";
                 }
-                else {
-                    returnMsg += flight+" could not be cancelled<br>";
-                }
-            } catch (Exception_Exception ex) {
-                returnMsg += ex.getMessage()+" ";
+            }
+            else {
+                returnMsg += booking.getBookingNumber()+" cancelled<br>";
+                booking.setBookingStatus(Booking.BookingStatus.CANCELLED);
+                flightList.set(i, booking);
             }
         }
         for(int i=0;i<hotelList.size();i++) {
-            String hotel = hotelList.get(i);
-            try {
-                if (cancelHotel(hotel)) {
-                    returnMsg += hotel+" cancelled<br>";
-                    hotelList.remove(hotel);
-                    i--;
+            booking = hotelList.get(i);
+            if (booking.getBookingStatus() == Booking.BookingStatus.CONFIRMED) {
+                try {
+                    if (cancelHotel(booking.getBookingNumber())) {
+                        returnMsg += booking.getBookingNumber()+" cancelled<br>";
+                        booking.setBookingStatus(Booking.BookingStatus.CANCELLED);
+                        hotelList.set(i, booking);
+                    }
+                    else {
+                        returnMsg += booking.getBookingNumber()+" could not be cancelled<br>";
+                    }
+                } catch (Exception_Exception ex) {
+                    returnMsg += booking.getBookingNumber()+" could not be cancelled because of the following error: "+ex.getMessage()+"<br>";
                 }
-                else {
-                    returnMsg += hotel+" could not be cancelled<br>";
-                }
-            } catch (Exception_Exception ex) {
-                returnMsg += ex.getMessage()+" ";
+            }
+            else {
+                returnMsg += booking.getBookingNumber()+" cancelled<br>";
+                booking.setBookingStatus(Booking.BookingStatus.CANCELLED);
+                hotelList.set(i, booking);
             }
         }
         return returnMsg;
