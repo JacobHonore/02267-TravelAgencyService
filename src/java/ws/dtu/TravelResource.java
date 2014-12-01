@@ -1,7 +1,7 @@
 package ws.dtu;
 
 import TravelAgencyObjects.Booking;
-import TravelAgencyObjects.Itinery;
+import TravelAgencyObjects.Itinerary;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.DELETE;
@@ -19,38 +19,38 @@ import javax.ws.rs.core.Context;
  */
 @Path("travel")
 public class TravelResource {
-    @Path("createItinery")
+    @Path("createItinerary")
     @PUT
-    public String createItinery(@Context HttpServletRequest req) { 
+    public String createItinerary(@Context HttpServletRequest req) { 
         HttpSession session = req.getSession(true);
-        Itinery itinery;
-        itinery = new Itinery();
-        session.setAttribute("itinery", itinery);
-        return "New itinery created";
+        Itinerary itinerary;
+        itinerary = new Itinerary();
+        session.setAttribute("itinerary", itinerary);
+        return "New itinerary created";
     }
     
-    @Path("cancelItinery")
+    @Path("cancelItinerary")
     @DELETE
-    public String cancelItinery(@Context HttpServletRequest req) {
+    public String cancelItinerary(@Context HttpServletRequest req) {
         HttpSession session = req.getSession(true);
-        Itinery itinery;
-        itinery = (Itinery) session.getAttribute("itinery");
-        if (itinery == null) 
-            return "No itinery. Please create an itinery.";
-        String result = itinery.cancel();
-        session.setAttribute("itinery", itinery);
+        Itinerary itinerary;
+        itinerary = (Itinerary) session.getAttribute("itinerary");
+        if (itinerary == null) 
+            return "No itinerary. Please create an itinerary.";
+        String result = itinerary.cancel();
+        session.setAttribute("itinerary", itinerary);
         return result;
     }
     
-    @Path("getItinery")
+    @Path("getItinerary")
     @GET
-    public String getItinery(@Context HttpServletRequest req) {
+    public String getItinerary(@Context HttpServletRequest req) {
         HttpSession session = req.getSession(true);
-        Itinery itinery;
-        itinery = (Itinery) session.getAttribute("itinery");
-        if (itinery == null) 
-            return "No itinery. Please create an itinery.";
-        return itinery.get();
+        Itinerary itinerary;
+        itinerary = (Itinerary) session.getAttribute("itinerary");
+        if (itinerary == null) 
+            return "No itinerary. Please create an itinerary.";
+        return itinerary.get();
     }
     
     @Path("addFlight")
@@ -59,12 +59,12 @@ public class TravelResource {
         if (flightNumber == null || "".equals(flightNumber) || flightNumber.isEmpty())
             return "Please set the flightnumber parameter.";
         HttpSession session = req.getSession(true);
-        Itinery itinery;
-        itinery = (Itinery) session.getAttribute("itinery");
-        if (itinery == null) 
-            return "No itinery. Please create an itinery.";
-        Booking result = itinery.addFlight(flightNumber);
-        session.setAttribute("itinery", itinery);
+        Itinerary itinerary;
+        itinerary = (Itinerary) session.getAttribute("itinerary");
+        if (itinerary == null) 
+            return "No itinerary. Please create an itinerary.";
+        Booking result = itinerary.addFlight(flightNumber);
+        session.setAttribute("itinerary", itinerary);
         return "Flight with booking number "+result.getBookingNumber()+" has been booked and added to list of flights with status "+result.getBookingStatus()+".";
     }
     
@@ -74,12 +74,12 @@ public class TravelResource {
         if (hotelNumber == null || "".equals(hotelNumber) || hotelNumber.isEmpty())
             return "Please set the hotelnumber parameter.";
         HttpSession session = req.getSession(true);
-        Itinery itinery;
-        itinery = (Itinery) session.getAttribute("itinery");
-        if (itinery == null) 
-            return "No itinery. Please create an itinery.";
-        Booking result = itinery.addHotel(hotelNumber);
-        session.setAttribute("itinery", itinery);
+        Itinerary itinerary;
+        itinerary = (Itinerary) session.getAttribute("itinerary");
+        if (itinerary == null) 
+            return "No itinerary. Please create an itinerary.";
+        Booking result = itinerary.addHotel(hotelNumber);
+        session.setAttribute("itinerary", itinerary);
         return "Hotel with booking number "+result.getBookingNumber()+" has been booked and added to list of hotels with status "+result.getBookingStatus()+".";
     }
     
@@ -90,17 +90,17 @@ public class TravelResource {
     @QueryParam("destairport") String destAirport, @QueryParam("liftoffdate") String liftoffDate) {
         if (startAirport == null && destAirport == null && liftoffDate == null)
             return "All parameters havent been set.";
-        return Itinery.getFlight(startAirport, destAirport, liftoffDate);
+        return Itinerary.getFlight(startAirport, destAirport, liftoffDate);
     }
     
     @Path("getHotels")
     @Produces("application/json")
     @GET
     public String getHotels(@Context HttpServletRequest req, @QueryParam("city") String city,
-    @QueryParam("arrivaldate") String arrivalDate, @QueryParam("departuredate") String departureDate) {
+    @QueryParam("arrivaldate") String arrivalDate, @QueryParam("departuredate") String departureDate) throws Exception_Exception { //TODO: Handle exception
         if (city == null || arrivalDate == null || departureDate == null)
             return "All parameters havent been set.";
-        return Itinery.getHotels(city, arrivalDate, departureDate);
+        return Itinerary.getHotels(city, arrivalDate, departureDate);
     }
     
     @Path("book")
@@ -110,12 +110,12 @@ public class TravelResource {
         if (!(name != null && number != null && month > 0 && year > 0))
             return "All parameters havent been set.";
         HttpSession session = req.getSession(true);
-        Itinery itinery;
-        itinery = (Itinery) session.getAttribute("itinery");
-        if (itinery == null) 
-            return "No itinery. Please create an itinery.";
-        String result = itinery.book(name, number, month, year);
-        session.setAttribute("itinery", itinery);
+        Itinerary itinerary;
+        itinerary = (Itinerary) session.getAttribute("itinerary");
+        if (itinerary == null) 
+            return "No itinerary. Please create an itinerary.";
+        String result = itinerary.book(name, number, month, year);
+        session.setAttribute("itinerary", itinerary);
         return result;
     }
 }

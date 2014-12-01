@@ -11,17 +11,17 @@ import ws.dtu.Exception_Exception;
  *
  * @author jacobhonore
  */
-public class Itinery {
-    private int itineryNum;
+public class Itinerary {
+    private int itineraryNum;
     private String customerName;
     private String cardNumber;
     private int cardMonth;
     private int cardYear;
     private List<Booking> flightList = new ArrayList<Booking>();
     private List<Booking> hotelList = new ArrayList<Booking>();
-    public Itinery() {
+    public Itinerary() {
         Random rand = new Random();
-        this.itineryNum = rand.nextInt((10000 - 1) + 1) + 1;
+        this.itineraryNum = rand.nextInt((10000 - 1) + 1) + 1;
     }
     public String book(String customerName, String cardNumber, int cardMonth, int cardYear) {
         this.customerName = customerName;
@@ -30,6 +30,7 @@ public class Itinery {
         this.cardYear = cardYear;
         String msg = "";
         Booking booking;
+        boolean error = false;
         for(int i=0;i<flightList.size();i++) {
             booking = flightList.get(i);
             try {
@@ -58,10 +59,12 @@ public class Itinery {
                     }
                     else {
                         msg += booking.getBookingNumber()+" could not be booked.<br>";
+                        error = true;
                     }
                 }
             } catch (Exception_Exception ex) {
                 msg += booking.getBookingNumber()+" could not be booked. Because of the following error: "+ex.getMessage()+"<br>";
+                error = true;
             }
         }
         return msg;
