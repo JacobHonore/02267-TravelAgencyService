@@ -80,7 +80,7 @@ public class Itinery {
         ws.dtu.AirlineResource port = service.getAirlineResourcePort();
         return port.getFlight(startAirport, destAirport, liftoffDate);
     }
-    public static String getHotels(String city, String arrivalDate, String departureDate) {
+    public static String getHotels(String city, String arrivalDate, String departureDate) throws Exception_Exception {
         ws.dtu.HotelResource_Service service = new ws.dtu.HotelResource_Service();
         ws.dtu.HotelResource port = service.getHotelResourcePort();
         return port.getHotels(city, arrivalDate, departureDate);
@@ -151,6 +151,7 @@ public class Itinery {
         ws.dtu.HotelResource port = service.getHotelResourcePort();
         return port.cancelHotel(hotelNumber);
     }
+    
     private boolean bookFlight(String bookingNumber) throws Exception_Exception {
         dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCard = creditCard();
         ws.dtu.AirlineResourceService service = new ws.dtu.AirlineResourceService();

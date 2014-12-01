@@ -20,19 +20,6 @@
 
 <xs:element name="getFlightResponse" type="tns:getFlightResponse"/>
 
-<xs:complexType name="createAccount">
-<xs:sequence>
-<xs:element name="arg0" type="xs:string" minOccurs="0"/>
-<xs:element name="arg1" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="createAccountResponse">
-<xs:sequence>
-<xs:element name="return" type="ns1:accountType" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="bookFlight">
 <xs:sequence>
 <xs:element name="arg0" type="xs:string" minOccurs="0"/>
@@ -49,6 +36,19 @@
 <xs:complexType name="Exception">
 <xs:sequence>
 <xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createAccount">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createAccountResponse">
+<xs:sequence>
+<xs:element name="return" type="ns1:accountType" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
