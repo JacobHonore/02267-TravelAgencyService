@@ -36,7 +36,7 @@ public class Itinery {
     }
     public Booking addHotel(String hotelNumber) {
         Booking booking = new Booking(hotelNumber);
-        flightList.add(booking);
+        hotelList.add(booking);
         return booking;
     }
     public boolean isCreditCardInfoSet() {
@@ -91,7 +91,7 @@ public class Itinery {
         for (Booking flight : flightList) {
             returnMsg += flight+"<br>";
         }
-        returnMsg += "The following hotels has been booked:<br>";
+        returnMsg += "<br>The following hotels has been booked:<br>";
         for (Booking hotel : hotelList) {
             returnMsg += hotel+"<br>";
         }

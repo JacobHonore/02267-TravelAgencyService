@@ -81,7 +81,6 @@ public class TravelResource {
         Booking result = itinery.addHotel(hotelNumber);
         session.setAttribute("itinery", itinery);
         return "Hotel with booking number "+result.getBookingNumber()+" has been booked and added to list of hotels with status "+result.getBookingStatus()+".";
-
     }
     
     @Path("getFlights")
