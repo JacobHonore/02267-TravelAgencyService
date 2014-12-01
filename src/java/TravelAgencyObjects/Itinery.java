@@ -17,8 +17,8 @@ public class Itinery {
     private String cardNumber;
     private int cardMonth;
     private int cardYear;
-    private List<String> flightList = new ArrayList<String>();
-    private List<String> hotelList = new ArrayList<String>();
+    private List<Booking> flightList = new ArrayList<Booking>();
+    private List<Booking> hotelList = new ArrayList<Booking>();
     public Itinery() {
         Random rand = new Random();
         this.itineryNum = rand.nextInt((10000 - 1) + 1) + 1;
@@ -29,25 +29,15 @@ public class Itinery {
         this.cardMonth = cardMonth;
         this.cardYear = cardYear;
     }
-    public boolean addFlight(String flightNumber) throws Exception_Exception {
-        ws.dtu.AirlineResourceService service = new ws.dtu.AirlineResourceService();
-        ws.dtu.AirlineResource port = service.getAirlineResourcePort();
-        dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCard = creditCard();
-        boolean result = port.bookFlight(flightNumber, creditCard);
-        if (result == true) {
-            flightList.add(flightNumber);
-        }
-        return result;
+    public Booking addFlight(String flightNumber) {
+        Booking booking = new Booking(flightNumber);
+        flightList.add(booking);
+        return booking;
     }
-    public boolean addHotel(String hotelNumber) throws Exception_Exception {
-        ws.dtu.HotelResource_Service service = new ws.dtu.HotelResource_Service();
-        ws.dtu.HotelResource port = service.getHotelResourcePort();
-        dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCard = creditCard();
-        boolean result = port.bookHotel(hotelNumber, creditCard);
-        if (result == true) {
-            hotelList.add(hotelNumber);
-        }
-        return result;
+    public Booking addHotel(String hotelNumber) {
+        Booking booking = new Booking(hotelNumber);
+        flightList.add(booking);
+        return booking;
     }
     public boolean isCreditCardInfoSet() {
         return (customerName != null && cardNumber != null && cardMonth > 0 && cardYear > 0);
@@ -98,11 +88,11 @@ public class Itinery {
     }
     public String get() {
         String returnMsg = "The following flights has been booked:<br>";
-        for (String flight : flightList) {
+        for (Booking flight : flightList) {
             returnMsg += flight+"<br>";
         }
         returnMsg += "The following hotels has been booked:<br>";
-        for (String hotel : hotelList) {
+        for (Booking hotel : hotelList) {
             returnMsg += hotel+"<br>";
         }
         return returnMsg;

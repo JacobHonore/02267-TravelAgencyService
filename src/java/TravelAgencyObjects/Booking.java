@@ -19,4 +19,8 @@ public class Booking {
     public enum BookingStatus {
         CONFIRMED, UNCONFIRMED, CANCELLED
     }
+    @Override
+    public String toString() {
+        return "Booking number: "+bookingNumber+" Booking status: "+bookingStatus;
+    }
 }

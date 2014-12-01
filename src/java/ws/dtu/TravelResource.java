@@ -1,5 +1,6 @@
 package ws.dtu;
 
+import TravelAgencyObjects.Booking;
 import TravelAgencyObjects.Itinery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -62,15 +63,9 @@ public class TravelResource {
         itinery = (Itinery) session.getAttribute("itinery");
         if (itinery == null) 
             return "No itinery. Please create an itinery.";
-        if (!itinery.isCreditCardInfoSet())
-            return "Credit card info havent been set, please call setCreditCardInfo.";
-        try {
-            itinery.addFlight(flightNumber);
-        } catch (Exception_Exception ex) {
-            return ex.getMessage();
-        }
+        Booking result = itinery.addFlight(flightNumber);
         session.setAttribute("itinery", itinery);
-        return "Flight has been booked and added to list of flights.";
+        return "Flight with booking number "+result.getBookingNumber()+" has been booked and added to list of flights with status "+result.getBookingStatus()+".";
     }
     
     @Path("addHotel")
@@ -83,15 +78,10 @@ public class TravelResource {
         itinery = (Itinery) session.getAttribute("itinery");
         if (itinery == null) 
             return "No itinery. Please create an itinery.";
-        if (!itinery.isCreditCardInfoSet())
-            return "Credit card info havent been set, please call setCreditCardInfo.";
-        try {
-            itinery.addHotel(hotelNumber);
-        } catch (Exception_Exception ex) {
-            return ex.getMessage();
-        }
+        Booking result = itinery.addHotel(hotelNumber);
         session.setAttribute("itinery", itinery);
-        return "Hotel has been booked and added to list of hotels.";
+        return "Hotel with booking number "+result.getBookingNumber()+" has been booked and added to list of hotels with status "+result.getBookingStatus()+".";
+
     }
     
     @Path("getFlights")
