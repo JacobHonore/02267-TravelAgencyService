@@ -68,12 +68,12 @@ public class Itinery {
             String flight = flightList.get(i);
             try {
                 if (cancelFlight(flight)) {
-                    returnMsg += flight+" cancelled ";
+                    returnMsg += flight+" cancelled<br>";
                     flightList.remove(flight);
                     i--;
                 }
                 else {
-                    returnMsg += flight+" could not be cancelled ";
+                    returnMsg += flight+" could not be cancelled<br>";
                 }
             } catch (Exception_Exception ex) {
                 returnMsg += ex.getMessage()+" ";
@@ -83,12 +83,12 @@ public class Itinery {
             String hotel = hotelList.get(i);
             try {
                 if (cancelHotel(hotel)) {
-                    returnMsg += hotel+" cancelled ";
+                    returnMsg += hotel+" cancelled<br>";
                     hotelList.remove(hotel);
                     i--;
                 }
                 else {
-                    returnMsg += hotel+" could not be cancelled ";
+                    returnMsg += hotel+" could not be cancelled<br>";
                 }
             } catch (Exception_Exception ex) {
                 returnMsg += ex.getMessage()+" ";
@@ -97,13 +97,13 @@ public class Itinery {
         return returnMsg;
     }
     public String get() {
-        String returnMsg = "The following flights has been booked: ";
+        String returnMsg = "The following flights has been booked:<br>";
         for (String flight : flightList) {
-            returnMsg += flight+" ";
+            returnMsg += flight+"<br>";
         }
-        returnMsg += "The following hotels has been booked: ";
+        returnMsg += "The following hotels has been booked:<br>";
         for (String hotel : hotelList) {
-            returnMsg += hotel+" ";
+            returnMsg += hotel+"<br>";
         }
         return returnMsg;
     }
