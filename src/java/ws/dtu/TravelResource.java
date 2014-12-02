@@ -20,7 +20,7 @@ import javax.ws.rs.core.Context;
 @Path("travel")
 public class TravelResource {
     @Path("createItinerary")
-    @PUT
+    @POST
     public String createItinerary(@Context HttpServletRequest req) { 
         HttpSession session = req.getSession(true);
         Itinerary itinerary;
@@ -54,7 +54,7 @@ public class TravelResource {
     }
     
     @Path("addFlight")
-    @POST
+    @PUT
     public String addFlight(@Context HttpServletRequest req, @QueryParam("flightnumber") String flightNumber) {
         if (flightNumber == null || "".equals(flightNumber) || flightNumber.isEmpty())
             return "Please set the flightnumber parameter.";
@@ -69,7 +69,7 @@ public class TravelResource {
     }
     
     @Path("addHotel")
-    @POST
+    @PUT
     public String addHotel(@Context HttpServletRequest req, @QueryParam("hotelnumber") String hotelNumber) {
         if (hotelNumber == null || "".equals(hotelNumber) || hotelNumber.isEmpty())
             return "Please set the hotelnumber parameter.";
@@ -104,7 +104,7 @@ public class TravelResource {
     }
     
     @Path("book")
-    @POST
+    @PUT
     public String book(@Context HttpServletRequest req, @QueryParam("name") String name,
      @QueryParam("number") String number,  @QueryParam("month") int month,  @QueryParam("year") int year) {
         if (!(name != null && number != null && month > 0 && year > 0))
